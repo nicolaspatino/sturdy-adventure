@@ -22,10 +22,14 @@ import static org.junit.Assert.*;
  * 
  * Frontera:
  * CF1: Multas a devoluciones hechas en la fecha exacta (multa 0).
+ * CF2: Multas a devoluciones hechas en fechas pasadas(multa 0).
+ * CF3: Multas a devoluciones hechas en fechas futuras(multa > 0).
  * 
  * Clases de equivalencia:
- * CE1: Multas hechas a devolciones realizadas en fechas posteriores
+ * CE1: Multas hechas a devoluciones realizadas en fechas posteriores
  * a la limite. (multa multa_diaria*dias_retraso)
+ * CE2: Multas hechas a devoluciones realizadas en fechas anteriores 
+ * a la limite. (multa 0)
  * 
  * 
  * 
@@ -56,8 +60,7 @@ public class AlquilerTest {
                 ,0,sa.consultarMultaAlquiler(44, java.sql.Date.valueOf("2005-12-25")));
                 
     }
-    
-
+   
     @Test
     public void CE1Test() throws ExcepcionServiciosAlquiler{
         ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
@@ -75,6 +78,25 @@ public class AlquilerTest {
                 ,sa.valorMultaRetrasoxDia()*3,sa.consultarMultaAlquiler(55, java.sql.Date.valueOf("2005-12-28")));
                 
     }
+    
+    @Test
+    public void CE2Test() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        
+        Item i1=new Item(sa.consultarTipoItem(1), 54, "Los 5 Fantasticos", "Los 5 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-09"), 2000, "DVD", "Ciencia Ficcion");        
+        sa.registrarCliente(new Cliente("Juan Pelaez",3843,"24134","calle 13","jpa@gmail.com"));
+        sa.registrarItem(i1);
+                
+        Item item=sa.consultarItem(54);
+        
+        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-20"), 3843, item, 5);
+        //prueba: 0 dias de retraso
+        assertEquals("No se calcula correctamente la multa "
+                + "cuando la devolucion se realiza dias antes del limite.",0
+                ,sa.consultarMultaAlquiler(54, java.sql.Date.valueOf("2005-12-25")));
+                
+    }
+    
     
     
     
