@@ -5,7 +5,45 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
     <h:body>
-        
-  
+        <h:form id="form1">
+            <h:panelGrid columns="1" cellpadding="4">
+                <p:outputLabel for="id" value="id: " />
+                <p:inputText id="id" value="#{registrarClientes.id}"/>
+                
+                
+                <p:outputLabel for="telefono" value="telefono: " />
+                <p:inputText id="telefono" value="#{registrarClientes.telefono}"/>
+                
+                <p:outputLabel for="direccion" value="direccion: " />
+                <p:inputText id="direccion" value="#{registrarClientes.direccion}"/>
+                
+                <p:outputLabel for="email" value="email: " />
+                <p:inputText id="email" value="#{registrarClientes.email}"/>
+                
+                <p:outputLabel for="nombre" value="nombre:" />
+                <p:inputText id="nombre" value="#{registrarClientes.nombre}"/>
+                     
+            </h:panelGrid>            
+        </h:form>
+        <p:commandButton id="RegistrarCliente" value="RegistrarCliente" actionListener="#{registrarClientes.registrarCliente()}" update="form1 form2"/>
+        <h:form id="form2">
+            <p:dataTable var="cliente" value="#{registrarCliente.id}" selectionMode="single" selection="#{registrarClientes.itemSeleccionado}" rowKey="#{cliente.id}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{cliente.id}"/>
+                </p:column>
+                <p:column headerText="telefono">
+                    <h:outputText value="#{cliente.telefono}"/>
+                </p:column>
+                <p:column headerText="nombre">
+                    <h:outputText value="#{cliente.nombre}"/>
+                </p:column>
+                <p:column headerText="direccion">
+                    <h:outputText value="#{cliente.direccion}"/>
+                </p:column>
+                <p:column headerText="email">
+                    <h:outputText value="#{cliente.email}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>

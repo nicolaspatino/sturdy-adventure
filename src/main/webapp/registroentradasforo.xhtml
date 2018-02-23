@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <h:form id="form1">
+            <h:panelGrid columns="1" cellpadding="4">
+                <p:outputLabel for="date" value="date: " />
+                <p:inputText id="date" value="#{AlquilerItems.date}"/>
+                
+                <p:outputLabel for="id" value="id: " />
+                <p:inputText id="id" value="#{AlquilerItems.idCliente}"/>
+                
+                <p:outputLabel for="item" value="item: " />
+                <p:inputText id="item" value="#{AlquilerItems.item}"/>
+                
+                <p:outputLabel for="numdias" value="numero de dias:" />
+                <p:calendar id="numdias" value="#{AlquilerItems.numdias}" showOn="button" pattern="dd/MM/yyyy" navigator="true" />
+                     
+            </h:panelGrid>            
+        </h:form>
+        <p:commandButton id="alquilarItem" value="alquilar item" actionListener="#{AlquilerItems.AlquilarItem()}" update="form1 form2"/>
+        <h:form id="form2">
+            <p:dataTable var="item" value="#{AlquilerItems.item}" selectionMode="single" selection="#{AlquilarItems.itemSeleccionado}" rowKey="#{item.id}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                <p:column headerText="TipoID">
+                    <h:outputText value="#{item.tipoId}"/>
+                </p:column>
+                <p:column headerText="descripcion">
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>

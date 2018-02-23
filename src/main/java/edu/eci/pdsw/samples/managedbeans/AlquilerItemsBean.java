@@ -19,8 +19,10 @@ import javax.faces.bean.SessionScoped;
 public class AlquilerItemsBean implements Serializable {
 
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
+    
 
     public AlquilerItemsBean() {
     }
-
+    public void AlquilarItem(){
+    }
 }
